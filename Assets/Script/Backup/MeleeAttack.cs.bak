@@ -1,0 +1,59 @@
+using UnityEngine;
+
+public class MeleeAttack : MonoBehaviour
+{
+    [SerializeField]
+    private Animator _animator;
+    private float timer;
+    private float cooldown = 1.5f;
+
+    public Transform attackPoint;
+    public LayerMask enemyLayers;
+
+    private StatsManager Stats => StatsManager.Instance;
+
+    private float Force => Stats != null ? Stats.knockbackForce : 20f;
+    private float StunTime => Stats != null ? Stats.stuntime : 1f;
+    private float AttackRange => Stats != null ? Stats.weaponRange : 1f;
+    private int Damage => Stats != null ? Stats.damage : 1;
+
+    void Update()
+    {
+        if (timer > 0)
+        {
+            timer -= Time.deltaTime;
+        }
+    }
+
+    public void Attack()
+    {
+        if (timer <= 0)
+        {
+            _animator.SetBool("isAttacking", true);
+            timer = cooldown;
+        }
+    }
+
+    public void DealDamage()
+    {
+        Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, AttackRange, enemyLayers);
+        if (hitEnemies.Length > 0)
+        {
+            hitEnemies[0].GetComponent<Enemy_Health>().ChangeHealth(-Damage);
+            hitEnemies[0].GetComponent<EnemyKnockBack>().KnockBack(transform, Force, StunTime);
+        }
+    }
+
+    public void EndAttack()
+    {
+        _animator.SetBool("isAttacking", false);
+    }
+
+    public void OnDrawGizmosSelected()
+    {
+        if (attackPoint == null)
+            return;
+
+        Gizmos.DrawWireSphere(attackPoint.position, AttackRange);
+    }
+}

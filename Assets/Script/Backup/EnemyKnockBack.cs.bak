@@ -1,0 +1,26 @@
+using UnityEngine;
+
+public class EnemyKnockBack : MonoBehaviour
+{
+    private Rigidbody2D rb;
+    private Enemy_Movement enemyMovement;
+    private void Start()
+    {
+        rb = GetComponent<Rigidbody2D>();
+        enemyMovement = GetComponent<Enemy_Movement>();
+    }
+   public void KnockBack(Transform player, float force, float stunTime)
+    {
+        Vector2 knockbackDirection = (transform.position - player.position).normalized;
+        enemyMovement.SetEnemyState(EnemyState.knockback);
+        rb.linearVelocity = knockbackDirection * force;
+        StartCoroutine(Stun(stunTime));
+    }
+    private System.Collections.IEnumerator Stun(float stunTime)
+    {
+        // Disable enemy movement or actions here
+        yield return new WaitForSeconds(stunTime);
+        // Re-enable enemy movement or actions here
+        enemyMovement.SetEnemyState(EnemyState.Idle);
+   }
+}

@@ -1,0 +1,75 @@
+using System;
+using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
+
+public class Player_Bow : MonoBehaviour
+{
+    [Header("References")]
+    public Transform launchPoint;
+    public GameObject arrowPrefab;
+    [FormerlySerializedAs("_input")] public InputActionReference input; 
+    public PlayerController player;
+    Vector2 aimDirection=Vector2.right;
+    [Header("Bow Settings")]
+    [SerializeField] private float arrowSpeed = 15f;
+    public Animator animator;
+    
+    public float shootCoolDown = 0.5f;
+    private float timer;
+    private InputAction _shootAction;
+
+    private void OnEnable()
+    {
+            animator.SetLayerWeight(0,0);
+            animator.SetLayerWeight(1,1);
+            _shootAction = input.action;
+            _shootAction.Enable();
+            // 订阅按下事件
+            _shootAction.performed += OnShootPerformed;
+      
+    }
+
+    private void OnDisable()
+    {
+        if (_shootAction != null)
+        {
+            // 注销事件，防止内存泄漏
+            _shootAction.performed -= OnShootPerformed;
+        }
+        animator.SetLayerWeight(0,1);
+        animator.SetLayerWeight(1,0);
+    }
+
+    public void OnShootPerformed(InputAction.CallbackContext context)
+    {
+            animator.SetBool("isShooting",true);;
+         
+    }
+
+
+    private void Update()
+    {   timer-= Time.deltaTime;
+        HandleAiming();
+    }
+
+    private void HandleAiming()
+    { 
+        Vector2 moveinput = player._moveinput;
+        if (moveinput.x != 0 || moveinput.y != 0)
+        {
+            aimDirection = new Vector2(moveinput.x, moveinput.y).normalized;
+            animator.SetFloat("aimx", aimDirection.x);
+            animator.SetFloat("amiy", aimDirection.y);
+        }
+    }
+    void Shoot()
+    { if(timer<=0){
+            Arrow arrow = Instantiate(arrowPrefab, launchPoint.position, Quaternion.identity).GetComponent<Arrow>();
+            arrow._derection=aimDirection;
+            timer = shootCoolDown;
+        }
+       animator.SetBool("isShooting",false);
+    }
+
+}
