@@ -1030,6 +1030,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "openshop",
+                    "type": "Button",
+                    "id": "77266137-16ac-4da8-a44e-f21aa9fdf1a4",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -1129,6 +1138,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "switch",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ed5cfd6a-d7b3-4342-aad8-d16c2b3d1d33",
+                    "path": "<Keyboard>/b",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "openshop",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

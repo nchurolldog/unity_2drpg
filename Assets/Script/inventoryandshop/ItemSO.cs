@@ -12,5 +12,9 @@ public class ItemSO : ScriptableObject
    public int maxHealth;
    public int speed;
    public int damage;
+    public int stacksize;
    [Header("For Temporary Items")] public float duration;
+
+
+
 }

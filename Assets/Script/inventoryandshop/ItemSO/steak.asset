@@ -14,10 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   icon: {fileID: 5558420398955925738, guid: 5cbcef68d7abea547b163d79c5f7926c, type: 3}
   itemName: Steak
-  itemDescription: 
+  itemDescription: A juicy piece of raw beef. Provides plenty of energy once cooked
   isGold: 0
   currentHealth: 0
   maxHealth: 0
   speed: 0
-  damage: 0
-  duration: 0
+  damage: 1
+  stacksize: 1
+  duration: 2

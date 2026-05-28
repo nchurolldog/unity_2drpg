@@ -2,7 +2,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class State : MonoBehaviour
+public class StatsUI : MonoBehaviour
 {
     public GameObject[] statsSlots;
     public CanvasGroup statsCanvas;

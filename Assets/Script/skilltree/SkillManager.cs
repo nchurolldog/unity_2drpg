@@ -44,7 +44,7 @@ public class SkillManager : MonoBehaviour
         {
             case "MaxHealthBoost":
             {
-                StatsManager.Instance.updateMaxHealth(1);
+                StatsManager.Instance.UpdateMaxHealth(1);
             }
                 break;
             default:

@@ -12,12 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c1b669cf9075cb46b92349fe53e6f18, type: 3}
   m_Name: gold
   m_EditorClassIdentifier: 
-  icon: {fileID: 0}
-  itemName: 
+  icon: {fileID: -3590945033612033506, guid: 1dc44d299e0f39f419774791d49872c0, type: 3}
+  itemName: Gold
   itemDescription: 
-  isGold: 0
+  isGold: 1
   currentHealth: 0
   maxHealth: 0
   speed: 0
   damage: 0
+  stacksize: 0
   duration: 0

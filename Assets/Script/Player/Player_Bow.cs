@@ -30,7 +30,7 @@ public class Player_Bow : MonoBehaviour, IAttackProvider
     }
 
     public void Attack()
-    {
+    { if(timer>0) return;
         animator.SetBool("isShooting", true);
         player.isShooting=true;
     }
@@ -51,7 +51,7 @@ public class Player_Bow : MonoBehaviour, IAttackProvider
             animator.SetFloat("amiy", aimDirection.y);
         }
     }
-    void Shoot()
+    void Shoot()//动画控制时调用
     { if(timer<=0){
             Arrow arrow = Instantiate(arrowPrefab, launchPoint.position, Quaternion.identity).GetComponent<Arrow>();
             arrow._derection=aimDirection;

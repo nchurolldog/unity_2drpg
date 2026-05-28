@@ -10,7 +10,7 @@ public class StatsManager : MonoBehaviour
     public float knockbackForce;
     public float knockbackDuration;
     public float stuntime;
-
+    public StatsUI statsUI;
     [Header("Movement Stats")]
     public float speed;
 
@@ -29,10 +29,20 @@ public class StatsManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
-    public void updateMaxHealth(int amount)
+    public void UpdateMaxHealth(int amount)
     {
         maxHealth+= amount;
         currentHealth += amount;
        healthText.text = "hp: "+currentHealth + "/" + maxHealth;
+    }
+    public void UpdateCurHealth(int amount)
+    {
+     
+        currentHealth += amount;
+        healthText.text = "hp: "+currentHealth + "/" + maxHealth;
+    }
+    public void UpdateSpeed(int amount)
+    {
+       speed += amount;
     }
 }

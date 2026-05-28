@@ -45,7 +45,8 @@ public class Arrow : MonoBehaviour
     }
 
     private void AttachToTarget(Transform target)
-    {
+    {   //stop arrow movement and attach to target 
+
         sr.sprite = buriedSpritr;
         _rb.linearVelocity=Vector2.zero;
         _rb.bodyType = RigidbodyType2D.Kinematic;
