@@ -5,9 +5,12 @@ using UnityEngine.InputSystem;
 
 public class ShopKeeper : MonoBehaviour
 {
+    public static ShopKeeper currentKeeper;
     [SerializeField] private List<ShopItems> shopitems;
     [SerializeField] private List<ShopItems> shopweapons;
     [SerializeField] private List<ShopItems> shoparmors;
+    [SerializeField] private Camera shopkeeperCamera;
+    [SerializeField] Vector3 cameraOffset=new Vector3(0,0,-10);
     public Animator animator;
     public static event Action<ShopManager, bool> OnShopStateChanged;
     private bool isPlayerInRange = false;
@@ -31,15 +34,24 @@ public class ShopKeeper : MonoBehaviour
         if (isPlayerInRange)
         {
             isShopOpen = !isShopOpen;
+           
             OnShopStateChanged?.Invoke(shopManager, isShopOpen);
             shopCanvasGroup.alpha = isShopOpen ? 1 : 0;
             shopCanvasGroup.interactable = isShopOpen;
             shopCanvasGroup.blocksRaycasts = isShopOpen;
-            Time.timeScale = isShopOpen ? 0 : 1; // Pause the game when the shop is open
-                                                 //default ui is item shop
+           
             if (isShopOpen)
-            {
+            {   currentKeeper = this;
                 OpenItemShop();
+                // Move the camera to focus on the shopkeeper
+                shopkeeperCamera.transform.position = new Vector3(transform.position.x, transform.position.y, -10f);
+                shopkeeperCamera.gameObject.SetActive(true);
+            }
+            else
+            {
+                currentKeeper = null;
+                // Move the camera back to its original position
+                shopkeeperCamera.gameObject.SetActive(false);
             }
         }
     }

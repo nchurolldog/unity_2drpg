@@ -85,7 +85,7 @@ public class InventorySlot : MonoBehaviour, IPointerClickHandler
             if (eventData.button == PointerEventData.InputButton.Left)
 
             {
-                if(inventoryManager != null)
+                if(currentShop!= null)
                 {
                     currentShop.SellItem(item);
                     quantity--; 
@@ -93,7 +93,8 @@ public class InventorySlot : MonoBehaviour, IPointerClickHandler
                 }
 
                 else
-                { inventoryManager.UseItem(this); }
+                { 
+                    inventoryManager.UseItem(this); }
 
             }
             else if (eventData.button == PointerEventData.InputButton.Right)
